@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Blog Posts</h1>
+
+<!-- Search Form -->
+<form method="GET" action="{% url 'post_list' %}">
+    <input type="text" name="q" value="{{ search_query }}" placeholder="Search posts...">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Post List -->
+{% for post in page_obj %}
+    <div class="post">
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.content|truncatewords:30 }}</p>
+        <p>By {{ post.author.username }} on {{ post.created_at }}</p>
+    </div>
+{% empty %}
+    <p>No posts found.</p>
+{% endfor %}
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1&q={{ search_query }}">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ search_query }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ search_query }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&q={{ search_query }}">Last</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

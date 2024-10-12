@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Users</h2>
+
+<h3>Following</h3>
+<ul>
+    {% for user in followed_users %}
+        <li>
+            <a href="{% url 'profile' user.username %}" style="flex: 1; text-decoration: none; color: #333;">
+                <strong>{{ user.username }}</strong>
+            </a>
+            <form method="POST" action="{% url 'unfollow' user.username %}" style="margin-left: 10px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-unfollow">Unfollow</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No users followed yet.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Other Users</h3>
+<ul>
+    {% for user in non_followed_users %}
+        <li>
+            <a href="{% url 'profile' user.username %}" style="flex: 1; text-decoration: none; color: #333;">
+                <strong>{{ user.username }}</strong>
+            </a>
+            <form method="POST" action="{% url 'follow' user.username %}" style="margin-left: 10px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-follow">Follow</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No other users available to follow.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

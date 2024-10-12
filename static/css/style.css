@@ -1,0 +1,68 @@
+/* General Styles */
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 1rem;
+    text-align: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Ensure no margin */
+}
+
+nav ul li {
+    margin-right: 20px; /* Space between items */
+}
+
+nav ul li a {
+    color: #ffffff; /* White color for links */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Make links bold */
+    transition: color 0.3s; /* Smooth transition on hover */
+}
+
+nav ul li a:hover {
+    color: #ffcc00; /* Change color on hover for better visibility */
+}
+
+/* Main Content */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1200px; /* Increased the width limit */
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

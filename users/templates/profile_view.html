@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ profile.user.username }}'s Profile</h2>
+<p>Additional info about the user...</p>
+
+<h3>Posts</h3>
+<ul>
+    {% for post in posts %}
+        <li>
+            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

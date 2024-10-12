@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ profile.user.username }}'s Profile</h1>
+  {% if profile.profile_picture %}
+    <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture">
+  {% endif %}
+  <p>{{ profile.bio }}</p>
+
+  {% if user != profile.user %}
+    {% if user in profile.user.followers.all %}
+      <form action="{% url 'unfollow' username=profile.user.username %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Unfollow</button>
+      </form>
+    {% else %}
+      <form action="{% url 'follow' username=profile.user.username %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Follow</button>
+      </form>
+    {% endif %}
+  {% else %}
+    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+  {% endif %}
+
+  <h2>Posts by {{ profile.user.username }}</h2>
+  {% for post in profile.user.post_set.all %}
+    <div class="post">
+      <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+      <p>{{ post.content|truncatewords:30 }}</p>
+      <p>Created on {{ post.created_at }}</p>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}
